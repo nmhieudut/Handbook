@@ -1,8 +1,3 @@
-import i18n from 'plugins/i18n'
-import { useState } from 'react'
-import { LSManager } from 'utils/localstoragemanager'
-import Select from 'core/components/common/Select'
-import { langValues } from 'constants/language'
 import {
   SiFacebook,
   SiGithub,
@@ -13,15 +8,6 @@ import {
 import { BiPhoneCall } from 'react-icons/bi'
 import { IoMailOutline } from 'react-icons/io5'
 const Footer = () => {
-  const [defaultLanguage, setDefaultLanguage] = useState<any>(
-    LSManager.getLanguage()
-  )
-
-  const switchLanguage = (lang: string) => {
-    setDefaultLanguage(lang)
-    i18n.changeLanguage(lang)
-    LSManager.setLanguage(lang)
-  }
   return (
     <footer className="footer mt-12 constrast-section">
       <div className="container footer-container flex flex-col lg:grid bg-none">
@@ -65,16 +51,6 @@ const Footer = () => {
             <SiInstagram className="bg-none" size="2rem" />
             <p className="ml-4">Instagram</p>
           </a>
-        </div>
-        <div className="my-12 flex flex-col bg-none">
-          <div className="footer-content__title bg-none">Language</div>
-          <Select
-            style={{ maxHeight: 40 }}
-            className="p-2 border-2"
-            onChangeSelect={switchLanguage}
-            options={langValues}
-            selected={defaultLanguage}
-          />
         </div>
       </div>
       <p className="text-center">Powered by</p>

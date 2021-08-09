@@ -4,10 +4,6 @@ export const LSManager = {
   getToken: () => localStorage.getItem('access-token')?.toString(),
   removeToken: () => localStorage.remove('access-token'),
 
-  //language
-  setLanguage: (lang: string) => localStorage.setItem('LANG', lang),
-  getLanguage: () => localStorage.getItem('LANG')?.toString(),
-
   //set theme
   setTheme: (theme: string) => localStorage.setItem('THEME', theme),
   getTheme: () => localStorage.getItem('THEME'),

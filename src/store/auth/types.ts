@@ -30,7 +30,7 @@ export interface SignInSucessActionType {
 
 export interface SignInFailedActionType {
   type: typeof SIGN_IN_FAILED
-  payload: string
+  message: string
 }
 
 export interface SignUpActionType {

@@ -18,6 +18,12 @@ export const routes: IRouter[] = [
     componentPath: 'pages/Login',
     protected: false,
   },
+  {
+    path: 'register',
+    exact: true,
+    componentPath: 'pages/Register',
+    protected: false,
+  },
   //test-dev-area
   {
     path: 'sandbox',

@@ -22,6 +22,7 @@ export default function AuthReducer(
   state = initialState,
   action: AuthActionType
 ): AuthState {
+  console.log('action', action)
   switch (action.type) {
     case SIGN_IN:
       return {
@@ -38,7 +39,7 @@ export default function AuthReducer(
       return {
         isLoading: false,
         loggedInUser: null,
-        error: action.payload,
+        error: action.message,
       }
     default:
       return state

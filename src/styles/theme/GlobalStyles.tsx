@@ -1,12 +1,12 @@
 import { createGlobalStyle } from 'styled-components'
 
 export const GlobalStyles = createGlobalStyle`
-  * {
+  body {
     background: ${({ theme }: any) => theme.body};
     color: ${({ theme }: any) => theme.text};
   }
-  h1,h2,h3,h4,h5,h6,a {
-    color: ${({ theme }: any) => theme.text};
+  h1,h2,h3,h4,h5,h6,a, span,label {
+    color: ${({ theme }: any) => theme.text}!important;
   }
   .constrast-section {
     background-color:  ${({ theme }: any) => theme.constrast};

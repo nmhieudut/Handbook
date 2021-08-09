@@ -6,14 +6,14 @@ interface INavMenu {
 export const navMenu: INavMenu[] = [
   {
     page_path: '/blog',
-    children: 'blog',
+    children: 'Blog',
   },
   {
     page_path: '/docs',
-    children: 'docs',
+    children: 'Docs',
   },
   {
     page_path: '/contact',
-    children: 'contact',
+    children: 'Contact',
   },
 ]

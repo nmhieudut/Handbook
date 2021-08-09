@@ -6,26 +6,27 @@ import { put, takeLatest } from 'redux-saga/effects'
 
 function* login(action: actionTypes.SignInActionType) {
   try {
-    const data: any = yield* call(
+    const res: any = yield* call(
       Login,
       action.payload.username,
       action.payload.password
     )
-    if (data) {
+    console.log('--=====-', res.data)
+    if (res.data) {
       yield put({
         type: actionTypes.SIGN_IN_SUCCESS,
-        loggedInUser: {
-          avatar: data.photo,
-          displayName: data.display_name,
+        payload: {
+          avatar: res.data.photo || null,
+          displayName: res.data.userName,
         },
       })
-      LSManager.setToken(data.token)
+      LSManager.setToken(res.data.token)
     }
-    return
   } catch (e: any) {
+    console.log('-ewqdsa', e.response.data.message)
     yield put({
       type: actionTypes.SIGN_IN_FAILED,
-      error: e.response.data.error,
+      message: e.response.data.message,
     })
     console.log('Error: ', e)
   }
