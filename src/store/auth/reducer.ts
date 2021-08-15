@@ -1,4 +1,12 @@
-import { SIGN_IN, SIGN_IN_SUCCESS, SIGN_IN_FAILED } from './types'
+import {
+  SIGN_IN,
+  SIGN_IN_SUCCESS,
+  SIGN_IN_FAILED,
+  SIGN_UP,
+  SIGN_UP_FAILED,
+  SIGN_UP_SUCCESS,
+  SIGN_OUT,
+} from './types'
 import { AuthActionType } from './types'
 
 export interface LoggedInUser {
@@ -40,6 +48,27 @@ export default function AuthReducer(
         isLoading: false,
         loggedInUser: null,
         error: action.message,
+      }
+    case SIGN_UP:
+      return {
+        ...state,
+        isLoading: true,
+      }
+    case SIGN_UP_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        loggedInUser: action.payload,
+      }
+    case SIGN_UP_FAILED:
+      return {
+        isLoading: false,
+        loggedInUser: null,
+        error: action.message,
+      }
+    case SIGN_OUT:
+      return {
+        ...initialState,
       }
     default:
       return state

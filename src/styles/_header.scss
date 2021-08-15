@@ -1,13 +1,5 @@
 @import 'styles/custom';
 
-.header {
-  position: sticky;
-  z-index: 999;
-  top: 0;
-  &-container {
-    max-width: 1480px;
-  }
-}
 .header-menu {
   width: 100%;
 }
@@ -25,6 +17,12 @@
 }
 .toggle-icon {
   display: none;
+}
+.menu-collapse {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
 }
 .auth-menu {
   margin-left: 5rem;
@@ -56,43 +54,34 @@
   }
 }
 
-.collapse {
-  display: none;
-  position: absolute;
-  overflow: hidden;
-  z-index: 4;
-  top: 7rem;
-  right: 0;
-  width: 100%;
-  height: auto;
-  max-height: 18rem;
-  border-bottom: 5px solid;
-  border-bottom-color: rgb(84, 79, 177);
-  transition: all .3s ease-out;
-}
-
 @media only screen and (max-width: 1024px) {
   .toggle-icon {
     display: block;
     outline: none;
   }
-  .collapse {
-    display: block;
-    .menu-collapse-links {
+  .menu-collapse {
+    position: absolute;
+    overflow: hidden;
+    z-index: 4;
+    top: 5rem;
+    right: 0;
+    width: 100%;
+    height: auto;
+    max-height: 0;
+    transition: all 0.5s ease-out;
+    &-links {
       width: 100%;
       flex-direction: column;
       .menu-item {
-        padding: 1rem 0;
-        margin: 0 auto;
+        margin: 1rem auto;
       }
     }
     .toggle-icon {
       display: block;
       outline: none;
     }
-    &-close {
-      max-height: 0;
-      border-bottom: none;
+    &__open {
+      max-height: 50rem;
     }
   }
 }

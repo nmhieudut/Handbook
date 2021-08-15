@@ -13,11 +13,7 @@ export interface SignInUserPayload {
   username: string
   password: string
 }
-export interface SignUpUserPayload {
-  email: string
-  username: string
-  password: string
-}
+
 export interface SignInActionType {
   type: typeof SIGN_IN
   payload: SignInUserPayload
@@ -33,13 +29,34 @@ export interface SignInFailedActionType {
   message: string
 }
 
+export interface SignUpUserPayload {
+  displayName: string
+  username: string
+  password: string
+}
 export interface SignUpActionType {
   type: typeof SIGN_UP
   payload: SignUpUserPayload
 }
+export interface SignUpSucessActionType {
+  type: typeof SIGN_UP_SUCCESS
+  payload: LoggedInUser
+}
+
+export interface SignUpFailedActionType {
+  type: typeof SIGN_UP_FAILED
+  message: string
+}
+
+export interface SignOutActionType {
+  type: typeof SIGN_OUT
+}
 
 export type AuthActionType =
-  | SignUpActionType
   | SignInActionType
   | SignInSucessActionType
   | SignInFailedActionType
+  | SignUpActionType
+  | SignUpSucessActionType
+  | SignUpFailedActionType
+  | SignOutActionType
