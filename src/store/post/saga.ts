@@ -1,8 +1,8 @@
-import { put, takeLatest } from 'typed-redux-saga'
-import { fetchPosts } from 'services/post'
+import { deletePost, fetchPosts, updatePost } from 'services/post'
+import { all, call, put, takeLatest } from 'typed-redux-saga'
+import { history } from 'utils/history'
 import * as ActionTypes from './types'
-
-function* handleFetchPosts(action: ActionTypes.FetchPostsActionTypes) {
+function* handleFetchPosts() {
   try {
     yield put({
       type: ActionTypes.SET_POSTS,
@@ -39,9 +39,43 @@ function* handleFetchPosts(action: ActionTypes.FetchPostsActionTypes) {
     console.log('err: ', err)
   }
 }
-
+function* handleUpdatePost(action: ActionTypes.UpdatePostsActionTypes) {
+  try {
+    const res: any = yield* call(
+      updatePost,
+      action.payload.postId,
+      action.payload.content
+    )
+    if (res) {
+      yield put({
+        type: ActionTypes.FETCH_POSTS,
+      })
+      history.push('/home')
+    }
+  } catch (e: any) {
+    console.log('Error: ', e.response.data.message)
+  }
+}
+function* handleDeletePost(action: ActionTypes.UpdatePostsActionTypes) {
+  try {
+    const res: any = yield* call(deletePost, action.payload.postId)
+    if (res.status === 'success') {
+      console.log('ressss', res)
+      yield put({
+        type: ActionTypes.FETCH_POSTS,
+      })
+      history.push('/home')
+    }
+  } catch (e: any) {
+    console.log('Error: ', e.response.data.message)
+  }
+}
 function* watchedSagas() {
-  yield takeLatest(ActionTypes.FETCH_POSTS, handleFetchPosts)
+  yield all([
+    takeLatest(ActionTypes.FETCH_POSTS, handleFetchPosts),
+    takeLatest(ActionTypes.UPDATE_POST, handleUpdatePost),
+    takeLatest(ActionTypes.DELETE_POST, handleDeletePost),
+  ])
 }
 
 export default watchedSagas

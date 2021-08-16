@@ -8,7 +8,7 @@ export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS'
 export const SIGN_UP_FAILED = 'SIGN_UP_FAILED'
 
 export const SIGN_OUT = 'SIGN_OUT'
-
+export const SET_CURRENT_USER = 'SET_CURRENT_USER'
 export interface SignInUserPayload {
   username: string
   password: string
@@ -51,7 +51,10 @@ export interface SignUpFailedActionType {
 export interface SignOutActionType {
   type: typeof SIGN_OUT
 }
-
+export interface SetCurrentUserActionType {
+  type: typeof SET_CURRENT_USER
+  payload: LoggedInUser
+}
 export type AuthActionType =
   | SignInActionType
   | SignInSucessActionType
@@ -60,3 +63,4 @@ export type AuthActionType =
   | SignUpSucessActionType
   | SignUpFailedActionType
   | SignOutActionType
+  | SetCurrentUserActionType

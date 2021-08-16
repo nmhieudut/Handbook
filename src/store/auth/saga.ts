@@ -1,10 +1,10 @@
 import { LSManager } from 'utils/localstoragemanager'
 import * as actionTypes from './types'
 import { Login, Register } from 'services/auth'
-import { call, put, takeLatest } from 'typed-redux-saga'
+import { all, call, put, takeLatest } from 'typed-redux-saga'
 import { history } from 'utils/history'
 
-function* login(action: actionTypes.SignInActionType) {
+function* handleLogin(action: actionTypes.SignInActionType) {
   try {
     const res: any = yield* call(
       Login,
@@ -20,7 +20,7 @@ function* login(action: actionTypes.SignInActionType) {
         },
       })
       LSManager.setToken(res.data.token)
-      history.push('/')
+      history.push('/home')
     }
   } catch (e: any) {
     console.log('Error: ', e.response.data.message)
@@ -30,7 +30,7 @@ function* login(action: actionTypes.SignInActionType) {
     })
   }
 }
-function* register(action: actionTypes.SignUpActionType) {
+function* handleRegister(action: actionTypes.SignUpActionType) {
   try {
     const res: any = yield* call(
       Register,
@@ -47,7 +47,7 @@ function* register(action: actionTypes.SignUpActionType) {
         },
       })
       LSManager.setToken(res.data.token)
-      history.push('/')
+      history.push('/home')
     }
   } catch (e: any) {
     console.log('Error: ', e.response.data.message)
@@ -59,7 +59,10 @@ function* register(action: actionTypes.SignUpActionType) {
   }
 }
 function* watchedSagas() {
-  yield takeLatest(actionTypes.SIGN_IN, login)
-  yield takeLatest(actionTypes.SIGN_UP, register)
+  yield all([
+    takeLatest(actionTypes.SIGN_IN, handleLogin),
+    takeLatest(actionTypes.SIGN_UP, handleRegister),
+  ])
 }
+
 export default watchedSagas

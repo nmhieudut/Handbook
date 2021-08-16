@@ -6,6 +6,7 @@ import {
   SIGN_UP_FAILED,
   SIGN_UP_SUCCESS,
   SIGN_OUT,
+  SET_CURRENT_USER,
 } from './types'
 import { AuthActionType } from './types'
 
@@ -32,6 +33,11 @@ export default function AuthReducer(
 ): AuthState {
   console.log('action', action)
   switch (action.type) {
+    case SET_CURRENT_USER:
+      return {
+        ...state,
+        loggedInUser: action.payload,
+      }
     case SIGN_IN:
       return {
         ...state,

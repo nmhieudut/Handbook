@@ -1,13 +1,14 @@
-import { useState, useEffect, useRef } from 'react'
-import { Link } from 'react-router-dom'
-import { navMenu } from 'constants/navbar'
-import { HashLink } from 'react-router-hash-link'
-import { Divide as Hamburger } from 'hamburger-react'
-import { useSelector, useDispatch } from 'react-redux'
-import { RootState } from 'store/reducers'
+import { CaretDownOutlined, LogoutOutlined, SettingOutlined } from '@ant-design/icons'
 import { Avatar, Dropdown, Image, Menu } from 'antd'
-import { DownOutlined, UserOutlined } from '@ant-design/icons'
+import { navMenu } from 'constants/navbar'
+import { Divide as Hamburger } from 'hamburger-react'
+import { useEffect, useRef, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { HashLink } from 'react-router-hash-link'
 import { SignOutAction } from 'store/auth/action'
+import { RootState } from 'store/reducers'
+import { LSManager } from 'utils/localstoragemanager'
 export default function Header() {
   const dispatch = useDispatch()
   const user = useSelector((state: RootState) => state.auth.loggedInUser)
@@ -27,6 +28,7 @@ export default function Header() {
       document.removeEventListener('click', handleClickOutside)
     }
   }, [wrapperRef, showLinks])
+  console.log('-----------', user)
 
   const scrollWithOffset = (el: HTMLElement) => {
     const yCoordinate = el.getBoundingClientRect().top + window.pageYOffset
@@ -37,8 +39,18 @@ export default function Header() {
     <Menu>
       <Menu.Item
         key="1"
-        onClick={() => dispatch(SignOutAction())}
-        icon={<UserOutlined />}
+        // onClick={() => dispatch(SignOutAction())}
+        icon={<SettingOutlined />}
+      >
+        Settings
+      </Menu.Item>
+      <Menu.Item
+        key="2"
+        onClick={() => {
+          dispatch(SignOutAction());
+          LSManager.removeToken()
+        }}
+        icon={<LogoutOutlined />}
       >
         Sign Out
       </Menu.Item>
@@ -85,7 +97,7 @@ export default function Header() {
                         {user.displayName?.charAt(0)}
                       </Avatar>
                       <div className="mx-4">{user.displayName}</div>
-                      <DownOutlined />
+                      <CaretDownOutlined />
                     </span>
                   </Dropdown>
                 </div>

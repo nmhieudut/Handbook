@@ -31,14 +31,14 @@ export default function Login() {
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo)
   }
-  console.log('-----', loggedInUser, error)
+  console.log('-----User', loggedInUser)
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex justify-center items-center h-screen w-full">
       <div className="flex flex-col justify-center items-center border-2 p-12">
         <h3>LOGIN</h3>
         <Form
           name="basic"
-          labelCol={{ span: 8 }}
+          labelCol={{ span: 10 }}
           wrapperCol={{ span: 16 }}
           initialValues={{ remember: true }}
           onFinish={onFinish}

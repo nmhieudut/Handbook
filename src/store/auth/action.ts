@@ -1,3 +1,4 @@
+import { LoggedInUser } from './reducer'
 import {
   SignInUserPayload,
   AuthActionType,
@@ -5,6 +6,7 @@ import {
   SignUpUserPayload,
   SIGN_UP,
   SIGN_OUT,
+  SET_CURRENT_USER,
 } from './types'
 
 export function SignInAction(payload: SignInUserPayload): AuthActionType {
@@ -22,4 +24,10 @@ export function SignUpAction(payload: SignUpUserPayload): AuthActionType {
 
 export function SignOutAction(): AuthActionType {
   return { type: SIGN_OUT }
+}
+export function SetCurrentUserAction(payload: LoggedInUser): AuthActionType {
+  return {
+    type: SET_CURRENT_USER,
+    payload,
+  }
 }

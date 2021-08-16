@@ -2,7 +2,7 @@ import axios from 'axios'
 import { LSManager } from 'utils/localstoragemanager'
 
 const axiosClient = axios.create({
-  baseURL: process.env.REACT_APP_SERVER_URL || 'http://localhost:8080',
+  baseURL: `${process.env.REACT_APP_SERVER_URL}/api/v1`,
   timeout: 2000,
   headers: {
     // 'Access-Control-Allow-Origin': '*',
@@ -16,6 +16,8 @@ const axiosClient = axios.create({
 axiosClient.interceptors.request.use(
   (config: any) => {
     const token = LSManager.getToken()
+    console.log('token', token)
+
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
     }

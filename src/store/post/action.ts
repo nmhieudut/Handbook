@@ -1,4 +1,10 @@
-import { PostActionType, FETCH_POSTS, SET_POSTS } from './types'
+import {
+  PostActionType,
+  FETCH_POSTS,
+  SET_POSTS,
+  UPDATE_POST,
+  DELETE_POST,
+} from './types'
 import { Post } from './reducer'
 export function FetchPostsAction(): PostActionType {
   return {
@@ -16,5 +22,22 @@ export function SetPostsAction(
     posts,
     isFetching,
     total,
+  }
+}
+export function UpdatePostsAction(content, postId): PostActionType {
+  return {
+    type: UPDATE_POST,
+    payload: {
+      content,
+      postId,
+    },
+  }
+}
+export function DeletePostsAction(postId): PostActionType {
+  return {
+    type: DELETE_POST,
+    payload: {
+      postId,
+    },
   }
 }
