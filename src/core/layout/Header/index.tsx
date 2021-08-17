@@ -102,14 +102,9 @@ export default function Header() {
                   </Dropdown>
                 </div>
               ) : (
-                <>
-                  <Link to="/login" className="btn btn-transparent">
-                    Sign In
+                  <Link to="/auth" className="btn btn-primary">
+                    Sign In / Sign Up
                   </Link>
-                  <Link to="/register" className="btn btn-primary">
-                    Sign Up
-                  </Link>
-                </>
               )}
             </div>
           </div>

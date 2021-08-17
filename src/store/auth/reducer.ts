@@ -18,13 +18,15 @@ export interface LoggedInUser {
 export interface AuthState {
   isLoading: boolean
   loggedInUser: LoggedInUser | null
-  error: string | null
+  signInError: string | null
+  signUpError: string | null
 }
 
 const initialState: AuthState = {
   isLoading: false,
   loggedInUser: null,
-  error: null,
+  signInError: null,
+  signUpError: null,
 }
 
 export default function AuthReducer(
@@ -51,9 +53,10 @@ export default function AuthReducer(
       }
     case SIGN_IN_FAILED:
       return {
+        ...state,
         isLoading: false,
         loggedInUser: null,
-        error: action.message,
+        signInError: action.message,
       }
     case SIGN_UP:
       return {
@@ -68,9 +71,10 @@ export default function AuthReducer(
       }
     case SIGN_UP_FAILED:
       return {
+        ...state,
         isLoading: false,
         loggedInUser: null,
-        error: action.message,
+        signUpError: action.message,
       }
     case SIGN_OUT:
       return {

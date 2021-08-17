@@ -13,15 +13,9 @@ export const routes: IRouter[] = [
     protected: false,
   },
   {
-    path: 'login',
+    path: 'auth',
     exact: true,
-    componentPath: 'pages/Login',
-    protected: false,
-  },
-  {
-    path: 'register',
-    exact: true,
-    componentPath: 'pages/Register',
+    componentPath: 'pages/Auth',
     protected: false,
   },
   //test-dev-area

@@ -42,7 +42,10 @@ body {
   margin: 0;
   overflow-x: hidden;
 }
-
+.main-layout {
+  background: url("../assets/Frame.png") no-repeat fixed center;
+  background-size: 100% 100%;
+}
 button {
   outline: none !important;
 }

@@ -27,28 +27,17 @@
 .auth-menu {
   margin-left: 5rem;
   .btn {
-    display: inline-block;
-    padding: 15px 30px;
-    border-radius: 10px;
+    padding: .5rem 1rem;
+    border-radius: 999px;
+    border: 1px solid rgb(208, 208, 208);
     outline: none;
-    &-transparent {
-      color: $gray-dark;
-      &:hover {
-        color: #fff;
-      }
-    }
+    background-color: transparent;
     &-primary {
-      background: rgb(132, 128, 199);
-      background: linear-gradient(
-        90deg,
-        rgba(132, 128, 199, 1) 0%,
-        rgba(77, 182, 174, 1) 50%,
-        rgba(0, 212, 255, 1) 100%
-      );
-      color: #fff;
+      transition: all .3s ease-in;
       &:hover {
-        color: #242932;
-        background: #fff;
+        transform: translateY(-5px);
+        color: #fff!important;
+        background-color: $blue-blur;
       }
     }
   }

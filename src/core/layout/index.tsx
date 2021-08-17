@@ -6,11 +6,14 @@ import Header from './Header'
 export const Layout = () => {
   return (
     <Router history={history}>
+      <div className="main-layout">
       <Header />
       <main className="container">
         <Container />
       </main>
       {/* <Footer /> */}
+      </div>
+     
     </Router>
   )
 }
