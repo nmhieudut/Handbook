@@ -39,7 +39,7 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "build": "craco build",
+    "build": "CI=false && craco build",
     "start": "SET PORT=3000 && craco start -p $PORT",
     "test": "craco test",
     "eject": "react-scripts eject"
