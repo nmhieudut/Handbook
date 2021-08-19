@@ -4,24 +4,18 @@ import {
   EditOutlined,
   LikeOutlined,
   LikeTwoTone,
-  MoreOutlined,
+  MoreOutlined
 } from '@ant-design/icons'
 import {
   Avatar,
   Button,
   Card,
-  Collapse,
   Divider,
-  Popover,
-  Typography,
+  Popover
 } from 'antd'
 import TextArea from 'antd/lib/input/TextArea'
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { UpdatePostsAction } from 'store/post'
 import { formatDate } from 'utils/timer'
-
-const { Panel } = Collapse
 const { Meta } = Card
 
 function PostCard({
@@ -72,7 +66,7 @@ function PostCard({
   )
   return (
     <div className="w-full my-4">
-      <Card className="w-full">
+      <Card className="w-full" hoverable>
         <div className="flex justify-between items-center">
           <Meta
             className="flex items-center"
@@ -127,14 +121,14 @@ function PostCard({
           <div className="flex w-full">
             <button
               onClick={() => onLike()}
-              className="flex flex-1 justify-center items-center p-4 hover:bg-gray-100"
+              className="flex flex-1 p-4 justify-center items-center hover:bg-gray-100"
             >
               <LikeOutlined className="mx-4" />
               Like
             </button>
             <button
               //  onClick={() => onLike()}
-              className="flex flex-1 justify-center items-center p-4 hover:bg-gray-100"
+              className="flex flex-1 p-4 justify-center items-center hover:bg-gray-100"
             >
               <CommentOutlined className="mx-4" />
               Comment

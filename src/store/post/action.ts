@@ -2,6 +2,7 @@ import {
   PostActionType,
   FETCH_POSTS,
   SET_POSTS,
+  CREATE_POST,
   UPDATE_POST,
   DELETE_POST,
 } from './types'
@@ -24,20 +25,31 @@ export function SetPostsAction(
     total,
   }
 }
-export function UpdatePostsAction(content, postId): PostActionType {
+export function CreatePostAction(content, cb): PostActionType {
+  return {
+    type: CREATE_POST,
+    payload: {
+      content,
+    },
+    cb,
+  }
+}
+export function UpdatePostAction(content, postId, cb): PostActionType {
   return {
     type: UPDATE_POST,
     payload: {
       content,
       postId,
     },
+    cb,
   }
 }
-export function DeletePostsAction(postId): PostActionType {
+export function DeletePostAction(postId, cb): PostActionType {
   return {
     type: DELETE_POST,
     payload: {
       postId,
     },
+    cb,
   }
 }

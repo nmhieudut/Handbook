@@ -16,8 +16,6 @@ const axiosClient = axios.create({
 axiosClient.interceptors.request.use(
   (config: any) => {
     const token = LSManager.getToken()
-    console.log('token', token)
-
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
     }

@@ -2,6 +2,7 @@ import { Post } from './reducer'
 
 export const FETCH_POSTS = 'FETCH_POSTS'
 export const SET_POSTS = 'SET_POSTS'
+export const CREATE_POST = 'CREATE_POST'
 export const UPDATE_POST = 'UPDATE_POST'
 export const DELETE_POST = 'DELETE_POST'
 export interface FetchPostsActionTypes {
@@ -15,23 +16,33 @@ export interface SetPostsActionTypes {
   total: number
 }
 
-export interface UpdatePostsActionTypes {
+export interface CreatePostActionTypes {
+  type: typeof CREATE_POST
+  payload: {
+    content: string
+  }
+  cb: () => void
+}
+export interface UpdatePostActionTypes {
   type: typeof UPDATE_POST
   payload: {
     content: string
     postId: string
   }
+  cb: () => void
 }
 
-export interface DeletePostsActionTypes {
+export interface DeletePostActionTypes {
   type: typeof DELETE_POST
   payload: {
     postId: string
   }
+  cb: () => void
 }
 
 export type PostActionType =
   | FetchPostsActionTypes
   | SetPostsActionTypes
-  | UpdatePostsActionTypes
-  | DeletePostsActionTypes
+  | CreatePostActionTypes
+  | UpdatePostActionTypes
+  | DeletePostActionTypes

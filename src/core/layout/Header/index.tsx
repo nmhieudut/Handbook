@@ -28,7 +28,6 @@ export default function Header() {
       document.removeEventListener('click', handleClickOutside)
     }
   }, [wrapperRef, showLinks])
-  console.log('-----------', user)
 
   const scrollWithOffset = (el: HTMLElement) => {
     const yCoordinate = el.getBoundingClientRect().top + window.pageYOffset

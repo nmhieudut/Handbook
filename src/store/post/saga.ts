@@ -1,4 +1,4 @@
-import { deletePost, fetchPosts, updatePost } from 'services/post'
+import { deletePost, fetchPosts, updatePost, createPost } from 'services/post'
 import { all, call, put, takeLatest } from 'typed-redux-saga'
 import { history } from 'utils/history'
 import * as ActionTypes from './types'
@@ -27,6 +27,7 @@ function* handleFetchPosts() {
         isFetching: false,
         total: data.total,
       })
+      history.push('/home')
     } else {
       yield put({
         type: ActionTypes.SET_POSTS,
@@ -37,42 +38,52 @@ function* handleFetchPosts() {
     }
   } catch (err) {
     console.log('err: ', err)
+    return
   }
 }
-function* handleUpdatePost(action: ActionTypes.UpdatePostsActionTypes) {
+function* handleCreatePost(action: ActionTypes.CreatePostActionTypes) {
   try {
-    const res: any = yield* call(
+    const response = yield* call(createPost, action.payload.content)
+    console.log(response)
+
+    if (response) {
+      return action.cb()
+    }
+  } catch (e: any) {
+    console.log('Error: ', e.response.data.message)
+    return
+  }
+}
+function* handleUpdatePost(action: ActionTypes.UpdatePostActionTypes) {
+  try {
+    const response: any = yield* call(
       updatePost,
       action.payload.postId,
       action.payload.content
     )
-    if (res) {
-      yield put({
-        type: ActionTypes.FETCH_POSTS,
-      })
-      history.push('/home')
+    if (response) {
+      return action.cb()
     }
   } catch (e: any) {
     console.log('Error: ', e.response.data.message)
+    return
   }
 }
-function* handleDeletePost(action: ActionTypes.UpdatePostsActionTypes) {
+function* handleDeletePost(action: ActionTypes.DeletePostActionTypes) {
   try {
-    const res: any = yield* call(deletePost, action.payload.postId)
-    if (res.status === 'success') {
-      console.log('ressss', res)
-      yield put({
-        type: ActionTypes.FETCH_POSTS,
-      })
-      history.push('/home')
+    const response: any = yield* call(deletePost, action.payload.postId)
+    if (response.status === 'success') {
+      return action.cb()
     }
   } catch (e: any) {
     console.log('Error: ', e.response.data.message)
+    return
   }
 }
 function* watchedSagas() {
   yield all([
     takeLatest(ActionTypes.FETCH_POSTS, handleFetchPosts),
+    takeLatest(ActionTypes.CREATE_POST, handleCreatePost),
     takeLatest(ActionTypes.UPDATE_POST, handleUpdatePost),
     takeLatest(ActionTypes.DELETE_POST, handleDeletePost),
   ])

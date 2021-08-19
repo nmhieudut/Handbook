@@ -22,6 +22,10 @@ export const GlobalStyles = createGlobalStyle`
     color: ${({ theme }: any) => theme.text};
     text-decoration-color: ${({ theme }: any) => theme.text};
   }
+  .ant-card {
+    background: ${({ theme }: any) => theme.constrast};
+    color: ${({ theme }: any) => theme.text};
+  }
   .footer-content__title {
     border-bottom-color: ${({ theme }: any) => theme.text} 
   }
@@ -31,9 +35,9 @@ export const GlobalStyles = createGlobalStyle`
 `
 
 export const lightTheme = {
-  body: '#ffffff',
+  body: '#fbfbfb',
   text: '#0c1017',
-  constrast: '#ececec',
+  constrast: '#ffffff',
   border: 'rgba(229,231,235,1)',
 }
 
