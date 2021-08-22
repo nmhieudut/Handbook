@@ -2,14 +2,17 @@ import { createGlobalStyle } from 'styled-components'
 
 export const GlobalStyles = createGlobalStyle`
   body {
-    background: ${({ theme }: any) => theme.body};
     color: ${({ theme }: any) => theme.text};
+    background: ${({ theme }: any) => theme.body};
   }
   header {
     background: ${({ theme }: any) => theme.body};
   }
-  h1,h2,h3,h4,h5,h6,a, span,label {
+  h1, h2, h3, h4, h5, h6, a, span, label, .ant-card-meta-title {
     color: ${({ theme }: any) => theme.text}!important;
+  }
+  .ant-popover-inner, .ant-popover-arrow-content {
+    background: ${({ theme }: any) => theme.body};
   }
   .header-border {
     border-bottom: 1px solid;

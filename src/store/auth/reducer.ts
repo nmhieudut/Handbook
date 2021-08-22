@@ -11,6 +11,7 @@ import {
 import { AuthActionType } from './types'
 
 export interface LoggedInUser {
+  id: string
   avatar: string | null
   displayName: string | null
 }

@@ -22,6 +22,7 @@ const App: React.FC = () => {
   const [theme, toggleTheme] = useDarkMode()
   const dispatch = useDispatch()
   const themeMode = theme === 'light' ? lightTheme : darkTheme
+
   useEffect(() => {
     try {
       axiosClient.get(Rest.checkCurrentUser).then((res) => {
@@ -29,6 +30,7 @@ const App: React.FC = () => {
       })
     } catch (e) {}
   }, [dispatch])
+
   useEffect(() => {
     const unregisterAuthObserver = firebase
       .auth()
@@ -45,7 +47,7 @@ const App: React.FC = () => {
     <ThemeProvider theme={themeMode}>
       <DarkMode theme={theme} toggleTheme={toggleTheme} />
       <GlobalStyles />
-      <Layout />
+      <Layout theme={theme}/>
     </ThemeProvider>
   )
 }

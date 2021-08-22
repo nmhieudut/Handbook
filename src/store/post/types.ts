@@ -5,15 +5,19 @@ export const SET_POSTS = 'SET_POSTS'
 export const CREATE_POST = 'CREATE_POST'
 export const UPDATE_POST = 'UPDATE_POST'
 export const DELETE_POST = 'DELETE_POST'
+export const LIKE_POST = 'LIKE_POST'
+export const COMMENT_POST = 'COMMENT_POST'
 export interface FetchPostsActionTypes {
   type: typeof FETCH_POSTS
 }
 
 export interface SetPostsActionTypes {
   type: typeof SET_POSTS
-  posts: Post[]
-  isFetching: boolean
-  total: number
+  payload: {
+    posts: Post[]
+    isFetching: boolean
+    total: number
+  }
 }
 
 export interface CreatePostActionTypes {
@@ -21,7 +25,7 @@ export interface CreatePostActionTypes {
   payload: {
     content: string
   }
-  cb: () => void
+  cb: (e?: any) => void
 }
 export interface UpdatePostActionTypes {
   type: typeof UPDATE_POST
@@ -34,8 +38,21 @@ export interface UpdatePostActionTypes {
 
 export interface DeletePostActionTypes {
   type: typeof DELETE_POST
+  postId: string
+  cb: () => void
+}
+
+export interface LikePostActionTypes {
+  type: typeof LIKE_POST
+  postId: string
+  cb: () => void
+}
+
+export interface CommentPostActionTypes {
+  type: typeof COMMENT_POST
   payload: {
     postId: string
+    content: string
   }
   cb: () => void
 }
@@ -46,3 +63,5 @@ export type PostActionType =
   | CreatePostActionTypes
   | UpdatePostActionTypes
   | DeletePostActionTypes
+  | LikePostActionTypes
+  | CommentPostActionTypes

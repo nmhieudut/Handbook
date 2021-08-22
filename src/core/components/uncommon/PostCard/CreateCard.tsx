@@ -1,25 +1,35 @@
-import { Avatar, Button, Card, Divider } from 'antd'
+import { Avatar, Button, Card, Divider, notification } from 'antd'
 import TextArea from 'antd/lib/input/TextArea'
 import { useState } from 'react'
 const { Meta } = Card
 
-function CreateCard({
-  loading,
-  user: { avatar, displayName },
-  onCreatePost,
-}: any) {
+function CreateCard({ user: { avatar, displayName }, onCreatePost }: any) {
   const [text, setText] = useState('')
+  const [loading, setLoading] = useState(false)
   const onChange = ({ target: { value } }) => {
     setText(value)
   }
   const handleCreatePost = () => {
-    onCreatePost(text)
+    setLoading(true)
+    onCreatePost(text, (e) => {
+      if (e) {
+        notification['failed']({
+          message: 'Success!',
+          description: 'Posted succesfully',
+        })
+      } else {
+        notification['success']({
+          message: 'Success!',
+          description: 'Posted succesfully',
+        })
+      }
+      setText('')
+      setLoading(false)
+    })
   }
   return (
     <div className="w-full my-4">
       <Card className="w-full">
-        <h2>Post something</h2>
-        <Divider plain/>
         <div className="flex justify-between items-center">
           <Meta
             className="flex items-center"

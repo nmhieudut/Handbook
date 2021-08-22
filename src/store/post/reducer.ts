@@ -11,6 +11,8 @@ export interface Post {
   content: string
   author: Author
   createdAt: Date
+  likes: Author[]
+  comment: []
 }
 
 export interface PostState {
@@ -35,9 +37,9 @@ export default function postsReducers(
     case SET_POSTS:
       return {
         ...state,
-        posts: action.posts,
-        isFetching: action.isFetching,
-        total: action.total,
+        posts: action.payload.posts,
+        isFetching: action.payload.isFetching,
+        total: action.payload.total,
         // hasSearched: action.hasSearched,
       }
     default:

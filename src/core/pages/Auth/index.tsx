@@ -35,7 +35,6 @@ export default function Auth() {
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo)
   }
-  console.log('-----User', loggedInUser, isSignIn)
   return (
     <div className="flex justify-center items-center h-screen w-full">
       <div className="border-2 rounded-2xl py-8">

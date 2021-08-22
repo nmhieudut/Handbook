@@ -15,6 +15,7 @@ function* handleLogin(action: actionTypes.SignInActionType) {
       yield put({
         type: actionTypes.SIGN_IN_SUCCESS,
         payload: {
+          id: res.data.user.id,
           avatar: res.data.user.avatar || null,
           displayName: res.data.user.displayName,
         },
@@ -42,6 +43,7 @@ function* handleRegister(action: actionTypes.SignUpActionType) {
       yield put({
         type: actionTypes.SIGN_UP_SUCCESS,
         payload: {
+          id: res.data.user.id,
           avatar: res.data.user.avatar || null,
           displayName: res.data.user.displayName,
         },

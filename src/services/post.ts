@@ -33,4 +33,24 @@ const deletePost = async (id) => {
   }
 }
 
-export { fetchPosts, createPost, updatePost, deletePost }
+const likePost = async (id) => {
+  try {
+    const res = await axiosClient.put(`${Rest.posts}/${id}/like`)
+    return res.data
+  } catch (err) {
+    return err
+  }
+}
+
+const commentPost = async (id, content) => {
+  try {
+    const res = await axiosClient.post(`${Rest.posts}/${id}/comment`, {
+      content,
+    })
+    return res.data
+  } catch (err) {
+    return err
+  }
+}
+
+export { fetchPosts, createPost, updatePost, deletePost, likePost, commentPost }

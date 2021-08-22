@@ -13,7 +13,6 @@ const Register = async (
   username: string,
   password: string
 ) => {
-  console.log('hererererere', Rest.register)
   const userPayload = {
     displayName,
     username,
