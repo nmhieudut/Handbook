@@ -2,27 +2,33 @@ interface IRouter {
   path: string
   exact: boolean
   componentPath: string
-  protected: false
 }
 
 export const routes: IRouter[] = [
   {
-    path: 'home',
+    path: '',
     exact: true,
     componentPath: 'pages/Home',
-    protected: false,
   },
   {
     path: 'auth',
     exact: true,
     componentPath: 'pages/Auth',
-    protected: false,
+  },
+  {
+    path: 'profile',
+    exact: true,
+    componentPath: 'pages/Profile',
+  },
+  {
+    path: 'search',
+    exact: true,
+    componentPath: 'pages/Search',
   },
   //test-dev-area
   {
     path: 'sandbox',
     exact: true,
     componentPath: 'pages/Sandbox',
-    protected: false,
   },
 ]

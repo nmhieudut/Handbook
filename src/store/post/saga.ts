@@ -5,6 +5,7 @@ import {
   createPost,
   likePost,
   commentPost,
+  searchPosts,
 } from 'services/post'
 import { all, call, put, select, takeLatest } from 'typed-redux-saga'
 import { history } from 'utils/history'
@@ -37,10 +38,10 @@ function* handleFetchPosts() {
             comments: post.comments,
           })),
           isFetching: false,
-          total: data.total,
+          total: data.posts.length,
         },
       })
-      history.push('/home')
+      history.push('/')
     } else {
       yield put({
         type: ActionTypes.SET_POSTS,
@@ -148,20 +149,62 @@ function* handleLikePost(action: ActionTypes.LikePostActionTypes) {
 function* handleCommentPost(action: ActionTypes.CommentPostActionTypes) {
   try {
     const posts = yield* select((state) => state.post.posts)
-    const response: any = yield* call(
+    const data: any = yield* call(
       commentPost,
       action.payload.postId,
       action.payload.content
     )
-    // if (response.status === 'success') {
-    //   yield put({
-    //     type: ActionTypes.SET_POSTS,
-    //     payload: {
-    //       posts: [...posts].filter((p) => p.id !== action.payload.postId),
-    //     },
-    //   })
-    //   return action.cb()
-    // }
+    if (data.post) {
+      yield put({
+        type: ActionTypes.SET_POSTS,
+        payload: {
+          posts: posts.map((post) =>
+            post.id === data.post._id
+              ? { ...post, comments: [...data.post.comments] }
+              : post
+          ),
+        },
+      })
+      return action.cb()
+    }
+  } catch (e: any) {
+    console.log('Error: ', e.response.data.message)
+    return
+  }
+}
+function* handleSearchPosts(action: ActionTypes.SearchPostsActionTypes) {
+  try {
+    yield put({
+      type: ActionTypes.SET_POSTS,
+      payload: {
+        posts: [],
+        isFetching: true,
+        total: -1,
+      },
+    })
+    const posts: any = yield call(searchPosts, action.payload.query)
+    if (posts) {
+      yield put({
+        type: ActionTypes.SET_POSTS,
+        payload: {
+          posts: posts.map((post) => ({
+            id: post._id,
+            content: post.content,
+            author: {
+              id: post.author._id,
+              displayName: post.author.displayName,
+              avatar: post.author.avatar,
+            },
+            createdAt: post.createdAt,
+            likes: post.likes,
+            comments: post.comments,
+          })),
+          isFetching: false,
+          total: posts.length,
+        },
+      })
+      return yield action.cb()
+    }
   } catch (e: any) {
     console.log('Error: ', e.response.data.message)
     return
@@ -175,6 +218,7 @@ function* watchedSagas() {
     takeLatest(ActionTypes.DELETE_POST, handleDeletePost),
     takeLatest(ActionTypes.LIKE_POST, handleLikePost),
     takeLatest(ActionTypes.COMMENT_POST, handleCommentPost),
+    takeLatest(ActionTypes.SEARCH_POSTS, handleSearchPosts),
   ])
 }
 

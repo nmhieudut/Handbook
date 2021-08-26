@@ -1,14 +1,14 @@
+import axiosClient from 'core/api'
+import Rest from 'core/api/List'
 import DarkMode from 'core/components/common/DarkMode'
-import { Layout } from 'core/layout'
+import { LayoutComponent } from 'core/layout'
 import firebase from 'firebase'
 import { useDarkMode } from 'hooks/useDarkMode'
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
+import { SetCurrentUserAction } from 'store/auth/action'
 import { ThemeProvider } from 'styled-components'
 import { darkTheme, GlobalStyles, lightTheme } from 'styles/theme/GlobalStyles'
-import axiosClient from 'core/api'
-import Rest from 'core/api/List'
-import { SetCurrentUserAction } from 'store/auth/action'
 require('dotenv').config()
 // Initialize Firebase
 const firebaseConfig = {
@@ -29,7 +29,7 @@ const App: React.FC = () => {
         dispatch(SetCurrentUserAction(res.data.user))
       })
     } catch (e) {}
-  }, [dispatch])
+  }, [])
 
   useEffect(() => {
     const unregisterAuthObserver = firebase
@@ -47,7 +47,7 @@ const App: React.FC = () => {
     <ThemeProvider theme={themeMode}>
       <DarkMode theme={theme} toggleTheme={toggleTheme} />
       <GlobalStyles />
-      <Layout theme={theme}/>
+      <LayoutComponent theme={theme}/>
     </ThemeProvider>
   )
 }

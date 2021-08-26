@@ -1,36 +1,32 @@
-import { Avatar, Card, Divider, Skeleton } from 'antd'
+import { Avatar, Card, Skeleton } from 'antd'
 import PostCard from 'core/components/uncommon/Post/Card'
-import CreateCard from 'core/components/uncommon/Post/CreateCard'
-import { useEffect } from 'react'
+import useQuery from 'hooks/useQuery'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import {
   CommentPostAction,
-  CreatePostAction,
   DeletePostAction,
-  FetchPostsAction,
   LikePostAction,
+  SearchPostsAction,
   UpdatePostAction,
 } from 'store/post/action'
 import { RootState } from 'store/reducers'
 
+interface Props {}
 const { Meta } = Card
-
-function Home() {
+const Search = (props: Props) => {
   const history = useHistory()
+  const query = useQuery()
+  const searchQuery = query.get('q')
+  const dispatch = useDispatch()
   const user = useSelector((state: RootState) => state.auth.loggedInUser)
   const posts = useSelector((state: RootState) => state.post.posts)
   const isFetching = useSelector((state: RootState) => state.post.isFetching)
 
-  const dispatch = useDispatch()
-
   useEffect(() => {
-    dispatch(FetchPostsAction())
-  }, [])
-
-  const onCreate = (content, cb) => {
-    dispatch(CreatePostAction(content, cb))
-  }
+    dispatch(SearchPostsAction(searchQuery, () => {}))
+  }, [searchQuery])
 
   const onSave = (editedText, id, cb) => {
     dispatch(UpdatePostAction(editedText, id, cb))
@@ -53,29 +49,25 @@ function Home() {
     }
     return history.push('/auth')
   }
-  console.log('user: ', user)
-  
   return (
     <div className="flex justify-center">
       <div className="flex flex-col w-1/2 py-6">
-        {user && (
-          <>
-            <CreateCard user={user} onCreatePost={onCreate} />
-            <Divider plain />
-          </>
-        )}
-        <h2>Recently posts</h2>
         {!isFetching ? (
-          posts.map((post, i) => (
-            <PostCard
-              onSave={onSave}
-              onDelete={onDelete}
-              onLike={onLike}
-              onComment={onComment}
-              post={post}
-              key={i}
-            />
-          ))
+          <>
+            <h2>
+              Results for: <b>{searchQuery}</b>
+            </h2>
+            {posts.map((post, i) => (
+              <PostCard
+                onSave={onSave}
+                onDelete={onDelete}
+                onLike={onLike}
+                onComment={onComment}
+                post={post}
+                key={i}
+              />
+            ))}
+          </>
         ) : (
           <Card className="w-full my-4">
             <Skeleton loading={true} avatar active>
@@ -93,4 +85,4 @@ function Home() {
   )
 }
 
-export default Home
+export default Search

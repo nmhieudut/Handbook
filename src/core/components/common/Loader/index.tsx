@@ -1,7 +1,8 @@
-import React from 'react';
+import { Spin } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
 
-interface Props {}
+const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
-export function Loader(props: Props) {
-  return <div>Loader</div>;
+export function Loader() {
+  return <Spin indicator={antIcon} />;
 }

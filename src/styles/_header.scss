@@ -22,22 +22,21 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: auto;
+  margin-right: auto;
 }
 .auth-menu {
   margin-left: 5rem;
   .btn {
     padding: .5rem 1rem;
     border-radius: 999px;
-    border: 1px solid rgb(208, 208, 208);
+    border: 2px solid rgb(208, 208, 208);
     outline: none;
     background-color: transparent;
     &-primary {
       transition: all .3s ease-in;
       &:hover {
-        transform: translateY(-5px);
         color: #fff!important;
-        background-color: $blue-blur;
+        background-color: $primary;
       }
     }
   }

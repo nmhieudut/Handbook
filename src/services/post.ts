@@ -52,5 +52,20 @@ const commentPost = async (id, content) => {
     return err
   }
 }
-
-export { fetchPosts, createPost, updatePost, deletePost, likePost, commentPost }
+const searchPosts = async (query) => {
+  try {
+    const res = await axiosClient.get(`${Rest.posts}/search?q=${query}`)
+    return res.data
+  } catch (err) {
+    return err
+  }
+}
+export {
+  fetchPosts,
+  createPost,
+  updatePost,
+  deletePost,
+  likePost,
+  commentPost,
+  searchPosts,
+}

@@ -21,7 +21,7 @@ function* handleLogin(action: actionTypes.SignInActionType) {
         },
       })
       LSManager.setToken(res.data.token)
-      history.push('/home')
+      history.push('/')
     }
   } catch (e: any) {
     console.log('Error: ', e.response.data.message)
@@ -49,7 +49,7 @@ function* handleRegister(action: actionTypes.SignUpActionType) {
         },
       })
       LSManager.setToken(res.data.token)
-      history.push('/home')
+      history.push('/')
     }
   } catch (e: any) {
     console.log('Error: ', e.response.data.message)

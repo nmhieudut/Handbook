@@ -7,6 +7,7 @@ import {
   DELETE_POST,
   LIKE_POST,
   COMMENT_POST,
+  SEARCH_POSTS,
 } from './types'
 import { Post } from './reducer'
 export function FetchPostsAction(): PostActionType {
@@ -65,6 +66,15 @@ export function CommentPostAction(postId, content, cb): PostActionType {
     payload: {
       postId,
       content,
+    },
+    cb,
+  }
+}
+export function SearchPostsAction(query, cb): PostActionType {
+  return {
+    type: SEARCH_POSTS,
+    payload: {
+      query,
     },
     cb,
   }

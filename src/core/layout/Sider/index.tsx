@@ -1,6 +1,7 @@
 import { Divider, Image, Menu } from 'antd'
 import Avatar from 'antd/lib/avatar/avatar'
 import React, { useState } from 'react'
+import { ImNewspaper } from 'react-icons/im'
 import { Link, useLocation } from 'react-router-dom'
 import { LoggedInUser } from 'store/auth/reducer'
 
@@ -11,18 +12,18 @@ interface Props {
   }
 }
 
-function Slider({ user, theme: { theme } }: Props) {
+function Sider({ user, theme: { theme } }: Props) {
   const location = useLocation()
   const path = location.pathname
-  const [selectedKey, setSelectedKey] = useState(path === '/home' ? 2 : 1)
+  const [selectedKey, setSelectedKey] = useState(path === '/' ? 2 : 1)
   const handleClick = (e) => {
     setSelectedKey(e.key)
   }
-  console.log('theme', theme)
+
   return (
     <div className="w-96 fixed h-screen">
       <Menu
-        className="pt-20 h-full"
+        className="pt-4 h-full"
         mode="inline"
         theme={theme === 'light' ? 'light' : 'dark'}
         onClick={handleClick}
@@ -35,8 +36,8 @@ function Slider({ user, theme: { theme } }: Props) {
           <span className="mx-4">{user.displayName}</span>
         </Menu.Item>
         <Divider plain />
-        <Menu.Item key="2">
-          <Link to="/home" className="p-2 rounded-full transition">
+        <Menu.Item key="2" icon={<ImNewspaper size="2rem" />}>
+          <Link to="/" className="p-2 rounded-full transition">
             <span className="flex items-center cursor-pointer">Feeds</span>
           </Link>
         </Menu.Item>
@@ -45,4 +46,4 @@ function Slider({ user, theme: { theme } }: Props) {
   )
 }
 
-export default Slider
+export default Sider

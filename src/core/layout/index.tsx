@@ -4,20 +4,20 @@ import { RootState } from 'store/reducers'
 import { history } from 'utils/history'
 import Container from './Container'
 import Header from './Header'
-import Slider from './Slider'
+import Sider from './Sider'
 
-export const Layout = (theme) => {
+export const LayoutComponent = (theme) => {
   const user = useSelector((state: RootState) => state.auth.loggedInUser)
   return (
     <Router history={history}>
       <div className="main-layout relative">
         <Header />
-        {user && <Slider theme={theme} user={user} />}
+        {user && <Sider theme={theme} user={user} />}
         <main className="container">
           <Container />
         </main>
-        {/* <Footer /> */}
       </div>
+      {/* <Footer /> */}
     </Router>
   )
 }

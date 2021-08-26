@@ -1,15 +1,22 @@
-import { CaretDownOutlined, LogoutOutlined, SettingOutlined } from '@ant-design/icons'
-import { Avatar, Dropdown, Image, Menu } from 'antd'
-import { navMenu } from 'constants/navbar'
+import {
+  CaretDownOutlined,
+  LogoutOutlined,
+  SettingOutlined,
+} from '@ant-design/icons'
+import { Avatar, Dropdown, Image, Input, Menu } from 'antd'
 import { Divide as Hamburger } from 'hamburger-react'
 import { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { HashLink } from 'react-router-hash-link'
 import { SignOutAction } from 'store/auth/action'
 import { RootState } from 'store/reducers'
 import { LSManager } from 'utils/localstoragemanager'
+
+const { Search } = Input
+
 export default function Header() {
+  const history = useHistory()
   const dispatch = useDispatch()
   const user = useSelector((state: RootState) => state.auth.loggedInUser)
   const [showLinks, setShowLinks] = useState(false)
@@ -46,7 +53,7 @@ export default function Header() {
       <Menu.Item
         key="2"
         onClick={() => {
-          dispatch(SignOutAction());
+          dispatch(SignOutAction())
           LSManager.removeToken()
         }}
         icon={<LogoutOutlined />}
@@ -58,13 +65,14 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-20 header-border">
       <div className="py-5 mx-auto header-container">
-        <div className="flex items-center header-menu">
+        <div className="flex justify-between items-center header-menu">
           <HashLink
             scroll={(el) => scrollWithOffset(el)}
             to="/"
             className="flex text-white items-center header-logo mr-24 text-white-300"
           >
             {/* <img src={logo} alt="" /> */}
+            <span className="text-3xl font-bold leading-1">Handbook.</span>
           </HashLink>
           <div
             className={
@@ -73,39 +81,32 @@ export default function Header() {
             ref={wrapperRef}
           >
             <div className="flex menu-collapse-links">
-              {navMenu.map((item, i) => {
-                return (
-                  <HashLink
-                    scroll={(el) => scrollWithOffset(el)}
-                    onClick={() => setShowLinks(false)}
-                    key={i}
-                    className="menu-item ml-14"
-                    to={item.page_path}
-                  >
-                    {item.children}
-                  </HashLink>
-                )
-              })}
+              <Search
+                placeholder="Search on Handbook"
+                enterButton="Search"
+                size="large"
+                onSearch={(value) => history.push(`/search?q=${value}`)}
+              />
             </div>
-            <div className="flex auth-menu items-center auth-menu">
-              {user ? (
-                <div className="hover:bg-gray-200 p-2 rounded-full transition">
-                  <Dropdown overlay={menu} placement="bottomRight">
-                    <span className="flex items-center cursor-pointer">
-                      <Avatar src={user.avatar && <Image src={user.avatar} />}>
-                        {user.displayName?.charAt(0)}
-                      </Avatar>
-                      <div className="mx-4">{user.displayName}</div>
-                      <CaretDownOutlined />
-                    </span>
-                  </Dropdown>
-                </div>
-              ) : (
-                  <Link to="/auth" className="btn btn-primary">
-                    Sign In / Sign Up
-                  </Link>
-              )}
-            </div>
+          </div>
+          <div className="flex auth-menu items-center auth-menu">
+            {user ? (
+              <div className="hover:bg-gray-200 p-2 rounded-full transition">
+                <Dropdown overlay={menu} placement="bottomRight">
+                  <span className="flex items-center cursor-pointer">
+                    <Avatar src={user.avatar && <Image src={user.avatar} />}>
+                      {user.displayName?.charAt(0)}
+                    </Avatar>
+                    <div className="mx-4">{user.displayName}</div>
+                    <CaretDownOutlined />
+                  </span>
+                </Dropdown>
+              </div>
+            ) : (
+              <Link to="/auth" className="btn btn-primary">
+                Sign In / Sign Up
+              </Link>
+            )}
           </div>
           <div
             className={'collapse ' + (showLinks ? '' : 'collapse-close')}

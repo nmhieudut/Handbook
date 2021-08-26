@@ -7,6 +7,7 @@ export const UPDATE_POST = 'UPDATE_POST'
 export const DELETE_POST = 'DELETE_POST'
 export const LIKE_POST = 'LIKE_POST'
 export const COMMENT_POST = 'COMMENT_POST'
+export const SEARCH_POSTS = 'SEARCH_POSTS'
 export interface FetchPostsActionTypes {
   type: typeof FETCH_POSTS
 }
@@ -57,6 +58,14 @@ export interface CommentPostActionTypes {
   cb: () => void
 }
 
+export interface SearchPostsActionTypes {
+  type: typeof SEARCH_POSTS
+  payload: {
+    query: string
+  }
+  cb: () => void
+}
+
 export type PostActionType =
   | FetchPostsActionTypes
   | SetPostsActionTypes
@@ -65,3 +74,4 @@ export type PostActionType =
   | DeletePostActionTypes
   | LikePostActionTypes
   | CommentPostActionTypes
+  | SearchPostsActionTypes

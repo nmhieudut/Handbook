@@ -5,7 +5,7 @@ interface INavMenu {
 
 export const navMenu: INavMenu[] = [
   {
-    page_path: '/home',
+    page_path: '/',
     children: 'Home',
   },
 ]
